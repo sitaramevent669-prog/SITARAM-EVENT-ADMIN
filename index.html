@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090909">
+  <meta name="description" content="Sitaram Event administration dashboard">
+  <title>SITARAM EVENT | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <div class="brand-mark">SE</div>
+      <p class="eyebrow">SITARAM EVENT</p>
+      <h1>Welcome back</h1>
+      <p class="muted">Sign in to manage your event business.</p>
+      <form id="login-form">
+        <label>Email address<input id="email" type="email" autocomplete="username" required placeholder="admin@example.com"></label>
+        <label>Password<input id="password" type="password" autocomplete="current-password" required placeholder="Your password"></label>
+        <button class="primary-btn full" type="submit">Sign in <span>→</span></button>
+        <p id="login-error" class="error" role="alert"></p>
+      </form>
+      <p class="login-foot">Secure administrator access</p>
+    </div>
+  </div>
+
+  <div id="app-shell" class="app-shell hidden">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-brand"><div class="brand-mark small">SE</div><div><strong>SITARAM</strong><span>EVENT ADMIN</span></div></div>
+      <div class="side-label">WORKSPACE</div>
+      <nav id="main-nav">
+        <button class="nav-link active" data-page="dashboard"><span>⌂</span> Dashboard</button>
+        <button class="nav-link" data-page="inquiries"><span>▤</span> Inquiries <i id="inquiry-badge"></i></button>
+        <button class="nav-link" data-page="services"><span>✧</span> Services</button>
+        <button class="nav-link" data-page="events"><span>◷</span> Events</button>
+        <button class="nav-link" data-page="gallery"><span>▧</span> Gallery</button>
+        <button class="nav-link" data-page="reviews"><span>☆</span> Reviews</button>
+        <button class="nav-link" data-page="settings"><span>⚙</span> Site settings</button>
+      </nav>
+      <div class="sidebar-bottom"><div class="secure-note"><span class="status-dot"></span><div><b>System protected</b><small>Supabase secure session</small></div></div><button id="logout-btn" class="logout-btn">↪ &nbsp; Sign out</button></div>
+    </aside>
+    <main class="main-area">
+      <header class="topbar"><button id="menu-btn" class="menu-btn" aria-label="Open menu">☰</button><div><p class="eyebrow" id="crumb">OVERVIEW</p><h2 id="page-title">Dashboard</h2></div><div class="top-user"><div class="avatar">A</div><div><b id="admin-email">Administrator</b><small>Owner access</small></div></div></header>
+      <section id="page-content" class="page-content"><div class="loading">Loading your workspace…</div></section>
+      <footer>© <span id="year"></span> SITARAM EVENT <span>•</span> Crafted for memorable celebrations</footer>
+    </main>
+  </div>
+  <div id="modal-root"></div>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="app.js"></script>
+</body>
+</html>
