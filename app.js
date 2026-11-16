@@ -30,7 +30,8 @@
   $('#login-form').addEventListener('submit',async e=>{e.preventDefault();const btn=e.submitter;btn.disabled=true;btn.textContent='Signing in…';$('#login-error').textContent='';try{const {error}=await db.auth.signInWithPassword({email:$('#email').value.trim(),password:$('#password').value});if(error)throw error;await checkAdmin()}catch(ex){$('#login-error').textContent=ex.message||'Unable to sign in'}finally{btn.disabled=false;btn.innerHTML='Sign in <span>→</span>'}});
   $('#logout-btn').addEventListener('click',async()=>{await db.auth.signOut();state.user=null;showLogin()});
   $('#main-nav').addEventListener('click',e=>{const b=e.target.closest('[data-page]');if(b)setPage(b.dataset.page)});
-  $('#menu-btn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));\n  $('#page-content').addEventListener('click',tableAction);
+  $('#menu-btn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
+  $('#page-content').addEventListener('click',tableAction);
   async function loadTable(page){const c=configs[page];$('#page-content').innerHTML='<div class="loading">Loading '+esc(c.title.toLowerCase())+'…</div>';try{let q=db.from(c.table).select('*');if(page==='inquiries')q=q.order('created_at',{ascending:false});else if(page==='settings')q=q.order('key');else q=q.order('sort_order',{ascending:true}).order('created_at',{ascending:false});const {data,error}=await q.limit(500);if(error)throw error;state.rows=data||[];renderTable(page)}catch(e){$('#page-content').innerHTML='<div class="panel"><p class="error">Could not load data: '+esc(e.message)+'</p></div>'}}
   function renderTable(page){const c=configs[page];let rows=state.rows.filter(r=>c.search.some(k=>String(r[k]??'').toLowerCase().includes(state.search.toLowerCase())));if(page==='inquiries'&&state.filter!=='all')rows=rows.filter(r=>r.status===state.filter);
     const head=c.cols.map(k=>'<th>'+esc(k.replaceAll('_',' ').toUpperCase())+'</th>').join('');
